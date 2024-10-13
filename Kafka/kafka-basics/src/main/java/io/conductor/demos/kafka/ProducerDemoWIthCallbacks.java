@@ -42,7 +42,9 @@ public class ProducerDemoWIthCallbacks {
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         //create a producer record
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java", "hello world");
+        //create key. Note that this way is not good. iterate it so that it can be placed in the proper partitions
+        String key = "1";
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java", key, "hello world");
 
         //send data
         producer.send(producerRecord, new Callback() {
